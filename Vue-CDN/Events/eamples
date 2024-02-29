@@ -1,0 +1,116 @@
+ <!-- Sure! Here are five //Examples of event handling in Vue.js 3, along with the CDN link for Vue 3:
+
+CDN Link for Vue 3: -->
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+//Example 1: Basic click event handler
+
+<div id="//Example-1">
+  <button @click="sayHello">Say Hello</button>
+</div>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+  methods: {
+    sayHello() {
+      alert('Hello!');
+    },
+  },
+}).mount('#//Example-1');
+</script>
+
+//Example 2: Passing arguments to an event handler
+
+<div id="//Example-2">
+  <button @click="greet('John')">Greet John</button>
+  <button @click="greet('Jane')">Greet Jane</button>
+</div>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+  methods: {
+    greet(name) {
+      alert(`Hello ${name}!`);
+    },
+  },
+}).mount('#//Example-2');
+</script>
+
+//Example 3: Using inline handlers and $event
+
+<div id="//Example-3">
+  <input type="text" @keyup.enter="logEvent($event)" />
+</div>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+  methods: {
+    logEvent(e) {
+      console.log(e);
+    },
+  },
+}).mount('#//Example-3');
+</script>
+
+//Example 4: Using event modifiers
+
+<div id="//Example-4">
+  <!-- This will only trigger when the mouse button is pressed AND released -->
+  <a href="#" @click.prevent="handleClick">Prevent default behavior</a><br />
+  
+  <!-- The shortcut .stop can be used as well -->
+  <a href="#" @click.stop="handleClick">Stop propagation</a><br />
+
+  <!-- These two events together mean that it will both stop propagation and prevent default behavior-->
+  <a href="#" @click.native.prevent.stop="handleClick">Stop propogation & Prevent Default</a><br />
+
+  <!-- Only triggered on right clicks -->
+  <a href="#" @contextmenu.prevent="handleContextMenu">Prevent context menu</a>
+</div>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+  methods: {
+    handleClick() {
+      // ...
+    },
+    handleContextMenu() {
+      // ...
+    },
+  },
+}).mount('#//Example-4');
+</script>
+
+//Example 5: Using `v-on` shorthand syntax
+
+<div id="//Example-5">
+  <button @click="count += 1">Add 1</button>
+  <p>Count: {{ count }}</p>
+  <button @click="reset">Reset</button>
+</div>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+  data() {
+    return {
+      count: 0,
+    };
+  },
+  methods: {
+    reset() {
+      this.count = 0;
+    },
+  },
+}).mount('#//Example-5');
+</script>

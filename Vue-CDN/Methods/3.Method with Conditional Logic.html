@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Method with Conditional Logic</title>
+</head>
+<body>
+  <div id="app">
+    <button @click="toggleLoginState">Toggle Login</button>
+    <p v-if="isLoggedIn">You are logged in.</p>
+    <p v-else>You are not logged in.</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          isLoggedIn: false,
+        };
+      },
+      methods: {
+        toggleLoginState() {
+          this.isLoggedIn = !this.isLoggedIn;
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>
+
+<!-- Explanation:
+Defines a toggleLoginState method that flips the isLoggedIn data property.
+Uses v-if directives to conditionally display messages based on the login state.
+ -->

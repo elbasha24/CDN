@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Handling with Key Modifiers</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" @keydown.ctrl.enter="submitForm">
+    <p>Press Ctrl + Enter to submit.</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      methods: {
+        submitForm() {
+          console.log("Form submitted with Ctrl + Enter!");
+          // Add actual form submission logic here
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>

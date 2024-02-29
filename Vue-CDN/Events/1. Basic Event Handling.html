@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Event Handling</title>
+</head>
+<body>
+  <div id="app">
+    <button @click="handleClick">Click Me!</button>
+    <p>You clicked the button!</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      methods: {
+        handleClick() {
+          console.log("Button clicked!");
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>

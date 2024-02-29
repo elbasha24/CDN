@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Method with Asynchronous Operations</title>
+</head>
+<body>
+  <div id="app">
+    <p v-if="loading">Loading data...</p>
+    <ul v-else>
+      <li v-for="item in data" :key="item.id">{{ item.name }}</li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          loading: true,
+          data: [],
+        };
+      },
+      methods: {
+        async fetchData() {
+          try {
+            const response = await fetch("https://api.example.com/data");
+            const data = await response.json();
+            this.data = data;
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          } finally {
+            this.loading = false;
+          }
+        },
+      },
+      mounted() {
+        this.fetchData();
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>
+
+<!-- Explanation:
+The fetchData method uses async/await to handle asynchronous data fetching.
+v-if and v-else directives conditionally show a loading message or the fetched data list. -->

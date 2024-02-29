@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modifying Event Behavior</title>
+</head>
+<body>
+  <div id="app">
+    <a href="#" @click.prevent="handleClick">Click Me (without navigation)</a>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      methods: {
+        handleClick() {
+          console.log("Button clicked (prevented default behavior)");
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>
+
+<!-- Explanation:
+Uses @click.prevent to prevent the default behavior (navigation) on clicking the link.
+The handleClick method is triggered instead, allowing custom logic to be executed. -->

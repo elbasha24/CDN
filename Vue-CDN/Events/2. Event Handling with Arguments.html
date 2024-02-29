@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Handling with Arguments</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="username">
+    <button @keyup.enter="greetUser">Greet</button>
+    <p>Hello, {{ username }}!</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          username: "",
+        };
+      },
+      methods: {
+        greetUser(event) {
+          console.log(`Hello, ${this.username}!`);
+          // Prevent default form submission if necessary (e.g., event.preventDefault())
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>
+
+<!-- Explanation:
+Binds the greetUser method to the keyup.enter event (triggered on pressing Enter key).
+Accesses the input value using this.username within the method.
+Logs a greeting message with the username passed as an argument. -->

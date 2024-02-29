@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calling Methods from Template</title>
+</head>
+<body>
+  <div id="app">
+    <p>The formatted message is: {{ formatMessage("Hello, World!") }}</p>
+    <button @click="clearMessage">Clear Message</button>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          message: "",
+        };
+      },
+      methods: {
+        formatMessage(text) {
+          return text.toUpperCase();
+        },
+        clearMessage() {
+          this.message = "";
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>
+
+<!-- Explanation:
+The formatMessage method is called within the template using curly braces {{ }}.
+The clearMessage method is bound to the button's click event to clear the message. -->

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emitting Events</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="newTask" />
+      <button @click="addTask">Add Task</button>
+      <ul>
+        <li v-for="task in tasks" :key="task.id">{{ task.content }}</li>
+      </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            newTask: "",
+            tasks: [],
+          };
+        },
+        methods: {
+          addTask() {
+            if (this.newTask) {
+              this.tasks.push({ id: Date.now(), content: this.newTask });
+              this.newTask = ""; // Clear input field
+              this.$emit("task-added");
+
+              // Add visual feedback (example)
+              alert("Task added!");
+            }
+          },
+        },
+      });
+
+      // Listen for the emitted event
+      app.$on("task-added", () => {
+        console.log("A new task has been added!");
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
+
+<!-- Explanation:
+
+Defines addTask to add a new task with ID and content to the tasks array.
+Emits a custom event task-added using this.$emit within the method.
+Listens for the task-added event using app.$on and logs a message upon successful addition.
+This snippet demonstrates how methods can be used to interact with the component's data and emit events for communication between components or the main application. -->
