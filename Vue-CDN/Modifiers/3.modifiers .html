@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prevent Default Modifier Example</title>
+</head>
+<body>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+  <div id="app">
+    <div id="app">
+      <div @click.stop="handleClick">Click me (won't bubble up)</div>
+      <div @click="handleInnerClick">Inner click (bubbles up)</div>
+    </div>
+    
+    <script>
+    function handleClick(event) {
+      event.stopPropagation(); // Stops event propagation
+      console.log('Outer div clicked');
+    }
+    
+    function handleInnerClick(event) {
+      console.log('Inner div clicked');
+    }
+    </script>
+    
+  </script>
+</body>
+</html>
+

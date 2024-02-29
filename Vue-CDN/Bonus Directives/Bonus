@@ -1,0 +1,107 @@
+ Besides the standard set of directives provided by Vue.js, there are several bonus directives that offer additional functionality. These directives are often specific to certain projects or libraries, but they can still be useful additions to your toolkit.
+
+Here are some examples of bonus directives:
+
+### v-focus
+
+This directive sets focus on an input element immediately upon rendering the component. You can define it like this:
+```javascript
+Vue.directive('focus', {
+  inserted(el) {
+    el.focus();
+  }
+});
+```
+Then, use it in your templates like so:
+```html
+<template>
+  <div>
+    <input v-focus />
+  </div>
+</template>
+```
+### v-ellipsis
+
+This directive truncates long strings and adds ellipses at the end of the string. You can define it like this:
+```javascript
+Vue.directive('ellipsis', {
+  bind(el) {
+    let width = getComputedStyle(el).width;
+    el._originalWidth = width;
+    el.addEventListener('mouseover', () => {
+      el.style.width = `${el.scrollWidth}px`;
+    });
+    el.addEventListener('mouseout', () => {
+      el.style.width = el._originalWidth;
+    });
+  }
+});
+```
+Then, use it in your templates like so:
+```html
+<template>
+  <div>
+    <p v-ellipsis>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </div>
+</template>
+```
+### v-debounce
+
+This directive debounces a given event, delaying its execution until a specified amount of time has passed since the last occurrence of the event. You can define it like this:
+```javascript
+Vue.directive('debounce', {
+  inserted(el, binding) {
+    let timeout;
+    el.addEventListener(binding.arg, () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        binding.value();
+      }, binding.modifiers.delay * 1000);
+    });
+  }
+});
+```
+Then, use it in your templates like so:
+```html
+<template>
+  <div>
+    <input v-debounce:blur.1="search" />
+  </div>
+</template>
+```
+In this example, the search method would be executed 1 second after the blur event has occurred. Note that the argument specifies the event name, and the modifier defines the delay period.
+
+### v-throttle
+
+This directive throttles a given event, limiting its execution frequency to a specified number of times per second. You can define it like this:
+```javascript
+Vue.directive('throttle', {
+  inserted(el, binding) {
+    let lastTime = null;
+    let timer = null;
+    el.addEventListener(binding.arg, () => {
+      const now = Date.now();
+      if (!lastTime || (now - lastTime >= (1000 / binding.modifiers.frequency))) {
+        lastTime = now;
+        binding.value();
+      } else if (!timer) {
+        timer = setTimeout(() => {
+          lastTime = null;
+          timer = null;
+        }, 1000 / binding.modifiers.frequency);
+      }
+    });
+  }
+});
+```
+Then, use it in your templates like so:
+```html
+<template>
+  <div>
+    <input v-throttle:scroll.10="onScroll" />
+  </div>
+</template>
+```
+In this example, the onScroll method would be executed no more frequently than 10 times per second. Note that the argument specifies the event name, and the modifier defines the maximum number of executions per second.
+
+These are just a few examples of bonus directives that you might find helpful. Remember that creating your own directives can help you encapsulate reusable functionality and keep your components clean and organized.

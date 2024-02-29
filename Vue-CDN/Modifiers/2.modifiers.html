@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prevent Default Modifier Example</title>
+</head>
+<body>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+  <div id="app">
+    <template>
+      <div class="example">
+        <h2>Prevent Default Modifier Example</h2>
+        <form @submit.prevent="submitHandler">
+          <label for="username">Username:</label>
+          <input type="text" id="username" v-model="username" />
+
+          <label for="password">Password:</label>
+          <input type="password" id="password" v-model="password" />
+
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </template>
+  </div>
+
+  <script setup>
+    import { ref } from "vue";
+
+    const username = ref("");
+    const password = ref("");
+
+    function submitHandler(e) {
+      // Prevent the form from submitting normally
+      e.preventDefault();
+      console.log(`Submitted with username "${username.value}" and password "${password.value}".`);
+    }
+  </script>
+</body>
+</html>
+
+<!-- The HTML defines a simple form with two input fields for a username and password, as well as a submit button. The @submit.prevent attribute on the <form> tag is a shorthand for adding an event listener to the form's "submit" event and calling the submitHandler function while also preventing the form's default submission behavior.
+
+The JavaScript code uses Vue.js's Composition API to define the username and password reactive reference variables using the ref function. These variables will hold the values entered into the corresponding input fields.
+
+The submitHandler function is defined to handle the form submission event. It takes an event object e as a parameter, and uses the preventDefault method to prevent the form from submitting normally (i.e., reloading the page or sending a request to the server). Instead, it logs a message to the console indicating the submitted username and password. -->

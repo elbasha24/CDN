@@ -1,0 +1,44 @@
+ In Vue.js, modifiers provide shortcuts for applying common behavior to elements without having to write custom directives or JavaScript logic. They can be added to any built-in Vue directive (such as `v-bind`, `v-on`, etc.) by appending a dot followed by the desired modifier keyword.
+
+Here are some commonly used modifiers in Vue.js:
+
+### stop modifier
+The `.stop` modifier stops the propagation of an event. It tells Vue to call the `event.stopPropagation()` method internally, preventing the event from bubbling up the DOM tree. For example:
+```html
+<a href="#" @click.stop="doSomething">Click me</a>
+```
+This will prevent the click event from triggering the default action of the anchor tag, such as navigating to another page.
+
+### prevent modifier
+The `.prevent` modifier calls the `event.preventDefault()` method internally, which prevents the browser from performing the default action associated with the event. For example:
+```html
+<form @submit.prevent="submitForm">
+  <!-- form fields here -->
+</form>
+```
+This will prevent the form from being submitted normally, allowing you to implement custom validation or submission logic.
+
+### capture modifier
+The `.capture` modifier allows you to register an event listener using the capturing phase instead of the bubbling phase. This means that the event will first fire on the outermost element before firing on inner elements. For example:
+```html
+<div @click.capture="handleClick">
+  <button>Click me</button>
+</div>
+```
+This will cause the `handleClick` function to be called before the click event reaches the button element.
+
+### self modifier
+The `.self` modifier only triggers the handler if the event was fired directly on the element itself, rather than one of its child elements. For example:
+```html
+<button @click.self="handleClick">Click me</button>
+```
+This will only call the `handleClick` function if the user clicks directly on the button element, but not if they click on a nested element inside the button.
+
+### once modifier
+The `.once` modifier causes the handler to be triggered only once, then automatically removed after the next time the event fires. For example:
+```html
+<button @click.once="sayHi">Say hi once</button>
+```
+This will show an alert saying "hi" only once, even if the user clicks multiple times on the button.
+
+These are just a few examples of the many available modifiers in Vue.js. By using these predefined behaviors, you can simplify your code and make it more readable and maintainable.
