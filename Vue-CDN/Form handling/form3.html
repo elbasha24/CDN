@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <div id="form-example-3">
+      <label>
+        <input type="radio" value="optionA" v-model="selectedOption" name="options" />
+        Option A
+      </label>
+      <label>
+        <input type="radio" value="optionB" v-model="selectedOption" name="options" />
+        Option B
+      </label>
+      <label>
+        <input type="radio" value="optionC" v-model="selectedOption" name="options" />
+        Option C
+      </label>
+      <p>Selected option: {{ selectedOption }}</p>
+    </div>
+    
+    <script>
+    const { createApp } = Vue;
+    
+    createApp({
+      data() {
+        return {
+          selectedOption: 'optionA',
+        };
+      },
+    }).mount('#form-example-3');
+    </script>
+</body>
+</html>

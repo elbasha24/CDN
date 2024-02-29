@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    
+    <div id="app">
+      <div id="form-example-9">
+        <range-slider v-model="rangeValue" :min="10" :max="100"></range-slider>
+        <p>Range Value: {{ rangeValue }}</p>
+      </div>
+      
+      <!-- Import external library CSS -->
+      <style scoped>
+      @import url('https://unpkg.com/noUiSlider@14.6.3/distribute/nouislider.min.css');
+      </style>
+      
+      <script>
+      // Register external component globally
+      Vue.component('range-slider', NoUISliderComponent);
+      
+      const { createApp } = Vue;
+      
+      createApp({
+        data() {
+          return {
+            rangeValue: [30, 70],
+          };
+        },
+      }).mount('#form-example-9');
+      </script>
+      <!-- External libraries need to be imported via script tags -->
+      <script src="https://unpkg.com/noUiSlider@14.6.3/distribute/nouislider.min.js"></script>
+      <script>
+      class NoUISliderComponent extends HTMLElement {
+        constructor() {
+          super();
+      
+          this._shadowRoot = this.attachShadow({ mode: 'open' });
+      
+          this._sliderElement = document.createElement('div');
+          this._sliderElement.classList.add('noui-target');
+      
+          this._sliderInputElement = document.createElement('input');
+          this._sliderInputElement.type = 'hidden';
+      
+          this._shadowRoot.appendChild(this._sliderElement);
+          this._shadowRoot.appendChild(this._sliderInputElement);
+      
+          noUiSlider.create(this._sliderElement, {
+            start: Array.from(arguments)[0],
+            connect: true,
+            tooltips: true,
+            range: {
+              min: parseInt(Array.from(arguments)[1]),
+              max: parseInt(Array.from(arguments)[2]),
+            },
+          });
+      
+          this._sliderElement.noUiSlider.on('update', () => {
+            this._sliderInputElement.value = JSON.stringify(
+              Array.from(this._sliderElement.noUiSlider.get()),
+            );
+          });
+      
+          Object.defineProperty(this, '_value', {
+            get: function () {
+              return JSON.parse(this._sliderInputElement.value);
+            },
+            set: function (val) {
+              this._sliderInputElement.value = JSON.stringify(val);
+              this._sliderElement.noUiSlider.set(val);
+            },
+          });
+      
+          this._sliderInputElement.addEventListener('change', () => {
+            try {
+              this._value = JSON.parse(this._sliderInputElement.value);
+            } catch (e) {}
+          });
+        }
+      
+        static get observedAttributes() {
+          return ['min', 'max'];
+        }
+      
+        attributeChangedCallback(_attrName, _oldVal, newVal) {
+          switch (_attrName) {
+            case 'min':
+              this._sliderElement.noUiSlider.updateOptions({
+                range: {
+                  min: parseInt(newVal),
+                },
+              });
+              break;
+            case 'max':
+              this._sliderElement.noUiSlider.updateOptions({
+                range: {
+                  max: parseInt(newVal),
+                },
+              });
+              break;
+          }
+        }
+      }
+      
+      customElements.define('range-slider', NoUISliderComponent);
+      </script>
+</body>
+</html>

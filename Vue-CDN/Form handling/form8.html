@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    
+    <div id="app">
+      <div id="form-example-8">
+        <datepicker v-model="selectedDate"></datepicker>
+        <p>Selected date: {{ selectedDate }}</p>
+      </div>
+      
+      <!-- Import external library CSS -->
+      <style scoped>
+      @import url('https://unpkg.com/flatpickr/dist/flatpickr.min.css');
+      </style>
+      
+      <script>
+      // Register external component globally
+      Vue.component('datepicker', FlatPicker);
+      
+      const { createApp } = Vue;
+      
+      createApp({
+        data() {
+          return {
+            selectedDate: new Date(),
+          };
+        },
+      }).mount('#form-example-8');
+      </script>
+      <!-- External libraries need to be imported via script tags -->
+      <script src="https://unpkg.com/moment@2.29.1/min/moment.min.js"></script>
+      <script src="https://unpkg.com/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
+      <script>
+      window.FlatPicker = flatpickr(document.createElement('input'), {});
+      </script>
+</body>
+</html>

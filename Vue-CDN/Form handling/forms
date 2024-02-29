@@ -1,0 +1,156 @@
+//  Certainly! Here are five examples of form handling in Vue.js 3 using the new composition API, including the CDN link for Vue 3:
+
+// CDN Link for Vue 3:
+// html
+<script src="https://unpkg.com/vue@next"></script>
+
+// Full Code Example:
+// html
+<div id="app">
+  <h1>Form Handling Examples</h1>
+  
+  <!-- EXAMPLE 1: Two Way Data Binding -->
+  <label>Name:</label>
+  <input type="text" v-model="user.name" /><br/>
+  Name: {{ user.name }}<br/>
+
+  <!-- EXAMPLE 2: Conditional Rendering Based on Form State -->
+  <form @submit.prevent="loginUser">
+    <label>Username:</label>
+    <input type="text" v-model="username" required /><br/>
+    
+    <label>Password:</label>
+    <input type="password" v-model="password" required /><br/>
+    
+    <button :disabled="isSubmitting || !isValid">Login</button>
+    <span v-if="errorMessage">{{ errorMessage }}</span>
+  </form><br/>
+
+  <!-- EXAMPLE 3: Dynamic Checkboxes -->
+  <label v-for="option in options" :key="option.value">
+    <input type="checkbox" :value="option.value" v-model="selectedOptions" />
+    {{ option.label }}
+  </label><br/>
+  Selected Options: {{ selectedOptions }}<br/>
+
+  <!-- EXAMPLE 4: Radio Buttons -->
+  <label v-for="gender in genders" :key="gender.value">
+    <input type="radio" :value="gender.value" v-model="chosenGender" name="gender" />
+    {{ gender.label }}
+  </label><br/>
+  Chosen Gender: {{ chosenGender }}<br/>
+
+  <!-- EXAMPLE 5: Custom Select Component -->
+  <select v-model="favoriteFruit">
+    <option value="" disabled hidden>Select a fruit...</option>
+    <option v-for="fruit in fruits" :key="fruit.id" :value="fruit.value">
+      {{ fruit.label }}
+    </option>
+  </select><br/>
+  Favorite Fruit: {{ favoriteFruit }}<br/>
+</div>
+
+<script>
+const { createApp } = Vue;
+
+// Define reusable components
+const OptionCheckbox = {
+  props: ['option', 'modelValue'],
+  template: `
+    <label>
+      <input type="checkbox" :value="option.value" v-model="localModelValue" />
+      {{ option.label }}
+    </label>`,
+  computed: {
+    localModelValue: {
+      get () {
+        return this.modelValue
+      },
+      set (value) {
+        this.$emit('update:modelValue', [...this.modelValue, value])
+      }
+    }
+  }
+};
+
+const CustomSelect = {
+  props: ['options', 'modelValue'],
+  emits: ['update:modelValue'],
+  template: `
+    <select v-model="localModelValue">
+      <option value="" disabled hidden>Select an option...</option>
+      <option v-for="option in options" :key="option.id" :value="option.value">
+        {{ option.label }}
+      </option>
+    </select>`,
+  computed: {
+    localModelValue: {
+      get () {
+        return this.modelValue
+      },
+      set (value) {
+        this.$emit('update:modelValue', value)
+      }
+    }
+  }
+};
+
+createApp({
+  setup() {
+    const user = reactive({ name: '' });
+    const username = ref('');
+    const password = ref('');
+    const isSubmitting = ref(false);
+    const errorMessage = ref('');
+    const selectedOptions = ref([]);
+    const chosenGender = ref('');
+    const fruits = [{ id: 1, label: 'Apple', value: 'apple' }, { id: 2, label: 'Banana', value: 'banana' }, { id: 3, label: 'Cherry', value: 'cherry' }];
+    const favoriteFruit = ref('');
+    
+    const loginUser = async () => {
+      try {
+        isSubmitting.value = true;
+        if (!validateInput(username.value)) throw new Error("Invalid input");
+        
+        await fetch('https://myapi.com/login', { method: 'POST', body: JSON.stringify({ username: username.value, password: password.value }), headers: { 'Content-Type': 'application/json' } })
+          
+        isSubmitting.value = false;
+        errorMessage.value = '';
+      } catch (err) {
+        isSubmitting.value = false;
+        errorMessage.value = err.message;
+      }
+    }
+
+    function validateInput(input) {
+      // Perform some basic validation logic here...
+      return input.length > 0 && input.includes('@');
+    }
+    
+    return {
+      user,
+      username,
+      password,
+      isSubmitting,
+      errorMessage,
+      selectedOptions,
+      options: [
+        { label: 'Option One', value: 'one' },
+        { label: 'Option Two', value: 'two' },
+        { label: 'Option Three', value: 'three' }
+      ],
+      chosenGender,
+      genders: [
+        { label: 'Male', value: 'male' },
+        { label: 'Female', value: 'female' },
+        { label: 'Other', value: 'other' }
+      ],
+      favoriteFruit,
+      OptionCheckbox,
+      CustomSelect
+    }
+  }
+}).mount('#app');
+</script>
+
+// These examples demonstrate various aspects of form handling in Vue 3, such as two-way data binding, conditional rendering based on form state, dynamic checkboxes, radio buttons, custom select components, and more. Note that these examples use the new Composition API introduced in Vue 3, which provides a more flexible way of defining component behaviors compared to the Options API used in earlier versions of Vue.

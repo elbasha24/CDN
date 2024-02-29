@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <div id="form-example-6">
+      <template v-for="(fruit, index) in fruits">
+        <label :key="index">
+          <input type="checkbox" :value="fruit" v-model="selectedFruits" />
+          {{ fruit }}
+        </label>
+      </template>
+      <p>Selected fruits: {{ selectedFruits }}</p>
+    </div>
+    
+    <script>
+    const { createApp } = Vue;
+    
+    createApp({
+      data() {
+        return {
+          fruits: ['apple', 'banana', 'orange'],
+          selectedFruits: [],
+        };
+      },
+    }).mount('#form-example-6');
+    </script>
+</body>
+</html>

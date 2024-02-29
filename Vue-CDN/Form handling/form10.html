@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    
+    <div id="form-example-10">
+      <textarea v-autoresize="{ maxHeight: 200 }" v-model="longMessage"></textarea>
+      <p>Long Message: {{ longMessage }}</p>
+    </div>
+    
+    <script>
+    const { createApp } = Vue;
+    
+    createApp({
+      directives: {
+        autoresize: {
+          inserted(el, binding) {
+            el.style.height = 'auto';
+            el.style.overflow = 'hidden';
+            el.style.resize = 'none';
+    
+            const maxHeight = binding.modifiers.maxHeight || null;
+    
+            const observeTarget = () => {
+              setTimeout(() => {
+                el.style.height = `${Math.min(
+                  el.scrollHeight + parseFloat(binding.arg) || 0,
+                  maxHeight,
+                )}px`;
+                requestAnimationFrame(observeTarget);
+              }, 200);
+            };
+    
+            observeTarget();
+          },
+        },
+      },
+      data() {
+        return {
+          longMessage: '',
+        };
+      },
+    }).mount('#form-example-10');
+    </script>
+</body>
+</html>

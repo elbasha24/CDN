@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <div id="form-example-5">
+      <form @submit.prevent="submitForm">
+        <label>Name:</label>
+        <input type="text" v-model="user.name" required />
+    
+        
+        <label>Email:</label>
+        <input type="email" v-model="user.email" required />
+    
+    
+        <button type="submit">Submit</button>
+      </form>
+    
+      <p v-if="submitted && !isValid">Please correct errors before submitting.</p>
+    </div>
+    
+    <script>
+    const { createApp } = Vue;
+    
+    createApp({
+      data() {
+        return {
+          user: {
+            name: '',
+            email: '',
+          },
+          submitted: false,
+          isValid: true,
+        };
+      },
+      methods: {
+        submitForm() {
+          if (!this.validate()) {
+            return;
+          }
+    
+          this.submitted = true;
+          console.log("Submitted:", this.user);
+        },
+        validate() {
+          const fields = ['name', 'email'];
+          let valid = true;
+          
+          fields.forEach((field) => {
+            if (!this[field]) {
+              this.$set(this, `${field}_error`, "This field cannot be empty.");
+              valid = false;
+            } else if (field === 'email' && !this.validEmail(this.email)) {
+              this.$set(this, `${field}_error`, "Invalid email format.");
+              valid = false;
+            } else {
+              this.$delete(this, `${field}_error`);
+            }
+          });
+    
+          this.isValid = valid;
+          return valid;
+        },
+        validEmail(value) {
+          const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return re.test(String(value).toLowerCase());
+        },
+      },
+    }).mount('#form-example-5');
+    </script>
+</body>
+</html>
