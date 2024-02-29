@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List Rendering with Computed Property</title>
+</head>
+<body>
+  <div id="app">
+    <h2>Filtered Posts</h2>
+    <ul>
+      <li v-for="post in filteredPosts" :key="post.id">
+        {{ post.title }}
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          posts: [
+            { id: 1, title: "Post 1", category: "News" },
+            { id: 2, title: "Post 2", category: "Tech" },
+            { id: 3, title: "Post 3", category: "News" },
+          ],
+          selectedCategory: "All",
+        };
+      },
+      computed: {
+        filteredPosts() {
+          if (this.selectedCategory === "All") {
+            return this.posts;
+          }
+          return this.posts.filter(post => post.category === this.selectedCategory);
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+
+</html>
+
+<!--  
+You're right, the previous code was incomplete. Here's the completed version demonstrating list rendering with a computed property:
+
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List Rendering with Computed Property</title>
+</head>
+<body>
+  <div id="app">
+    <h2>Filtered Posts</h2>
+    <ul>
+      <li v-for="post in filteredPosts" :key="post.id">
+        {{ post.title }}
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          posts: [
+            { id: 1, title: "Post 1", category: "News" },
+            { id: 2, title: "Post 2", category: "Tech" },
+            { id: 3, title: "Post 3", category: "News" },
+          ],
+          selectedCategory: "All",
+        };
+      },
+      computed: {
+        filteredPosts() {
+          if (this.selectedCategory === "All") {
+            return this.posts;
+          }
+          return this.posts.filter(post => post.category === this.selectedCategory);
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>
+Use code with caution.
+Explanation:
+
+Data: Defines an array of posts with titles and categories.
+Computed Property: filteredPosts filters the posts based on selectedCategory:
+If selectedCategory is "All," all posts are returned.
+Otherwise, only posts with the matching category are returned.
+List Rendering: Uses the filteredPosts computed property in the v-for loop to render the titles of filtered posts dynamically.
+This example demonstrates how a computed property can be used to dynamically filter data and control what gets rendered in the list.-->

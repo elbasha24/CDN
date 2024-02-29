@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Attribute Binding</title>
+</head>
+<body>
+  <div id="app">
+    <img :src="imageUrl" alt="Image description" />
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          imageUrl: "https://via.placeholder.com/150",
+        };
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>
+<!-- Explanation:
+The :src directive dynamically binds the imageUrl data property to the src attribute of the <img> element. -->

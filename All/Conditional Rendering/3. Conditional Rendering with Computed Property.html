@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conditional Rendering with Computed Property</title>
+</head>
+<body>
+  <div id="app">
+    <p v-if="hasAccess">You have access to this content.</p>
+    <p v-else>You do not have access.</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          role: "user",
+        };
+      },
+      computed: {
+        hasAccess() {
+          return this.role === "admin";
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>
+
+<!-- Explanation:
+Defines a computed property hasAccess to check the data property role.
+Conditionally renders the messages based on the computed property value. -->

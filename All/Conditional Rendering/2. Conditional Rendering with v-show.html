@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conditional Rendering with v-show</title>
+</head>
+<body>
+  <div id="app">
+    <button @click="toggleVisibility">Toggle Visibility</button>
+    <p v-show="isVisible">This paragraph is visible when toggled.</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          isVisible: true,
+        };
+      },
+      methods: {
+        toggleVisibility() {
+          this.isVisible = !this.isVisible;
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>
+
+<!-- Explanation:
+Uses v-show directive to toggle visibility based on a data property:
+Clicking the button triggers toggleVisibility, which inverts isVisible.
+The paragraph is hidden when isVisible is false and shown when true. -->

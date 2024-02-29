@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- step 3 create a div to accommodate the app -->
+    <div id="app">
+        <h1>Hello {{name}}</h1>
+        <h1>age is {{age}}</h1>
+        <!-- v-html directive -->
+        <h3 v-html="book"></h3>
+      
+
+       <!-- Bind html, not recommended for Safety -->
+       <h3 v-html="book"></h3>
+    </div>
+    <!-- step 1 import the below cdn -->
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+   
+    <script>
+        <!-- step 2 create an app -->
+        const app = Vue.createApp({
+            data() {
+                return {
+                    name: "John Doe",
+                    age: 12,
+                    profession: "Software Developer",
+                    isMarried: false,
+                    
+                    book: '<h3>My preferred book is love</h3>'
+                }
+            },
+        });
+        
+        
+        app.mount("#app");
+    </script>
+    
+</body>
+</html>

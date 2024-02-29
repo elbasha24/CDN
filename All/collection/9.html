@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Binding Multiple Attributes</title>
+</head>
+<body>
+  <div id="app">
+    <a :href="url" target="_blank" rel="noopener noreferrer">Link Text</a>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          url: "https://www.example.com",
+        };
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- step 3 create a div to accommodate the app -->
+    <div id="app">
+       <h1 v-bind:id="Heading" >Heading</h1>
+       <button v-bind:disabled="isDisabled">Disable</button>
+       <button v-bind:disabled="isDisabled">Click me!</button>
+       <div :class="{ active: isActive }">This element is {{ isActive ? 'active' : 'inactive' }}</div>
+       <img v-bind:src="imageUrl" alt="My Image">
+       <input v-model="name" placeholder="Enter your name">
+       <!-- Bind multiple attributes: -->
+       <a v-bind:href="'mailto:' + email" v-bind:title="email">Contact Us</a>
+       <!-- Bind inline styles: -->
+       <div v-bind:style="{ color: isWarning ? 'red' : 'black' }">This message is {{ isWarning ? 'warning' : 'normal' }}</div>
+       <!-- Use v-bind:key for list items: -->
+       <ul>
+        <li v-for="item in items" v-bind:key="item.id">
+          {{ item.name }}
+        </li>
+      </ul>
+      <!-- use if -->
+      <div v-if="isLoggedIn">
+        Welcome, {{ username }}!
+      </div>
+      <div v-else>
+        Please log in to continue.
+      </div>
+       <!-- Bind attribute with a computed property: -->
+       <div :data-id="computedId">This element has ID: {{ computedId }}</div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+   
+    <script>
+        <!-- step 2 create an app -->
+        const app = Vue.createApp({
+            data() {
+                return {
+                   headingId:'Heading', 
+                   Heading:"Hello World!",
+                    showParagraph:false,
+                   isDisabled:true,
+                   isDisabled: false,
+                   isActive: false, 
+                   imageUrl: 'https://example.com/image.jpg',
+                   name: '',
+                   email: 'contact@example.com',
+                   isWarning: false, //use if
+                   isLoggedIn: true, //use if
+                   username: 'John Doe',
+                   items: [//loop a list
+                            { id: 1, name: 'Item 1' },
+                            { id: 2, name: 'Item 2' },
+                        ],
+                   computed: {
+                    computedId() {
+                      return Math.random().toString(36).substring(2, 7);
+                    },
+                  },
+                }
+            },
+        });
+        
+        
+        app.mount("#app");
+    </script>
+    
+</body>
+</html>
+
+<!-- We use the v-bind directive in the <button> tag to bind the disabled attribute of the <button> element to the isDisabled property in our Vue.js application's data. This means that the disabled attribute of the <button> element will be set to the value of the isDisabled property. In this case, the disabled attribute will be set to true, which means that the button will be disabled.
+
+Finally, we mount our Vue.js instance to the <div> element with the id "app". This means that our Vue.js instance will manage the data and behavior of the elements inside the <div> element.
+
+In summary, this code creates a simple Vue.js application that displays a heading with the id "Heading" and a disabled button. The heading's id and the button's disabled state are bound to properties in the Vue.js application's data.
+
+
+
+
+
+ -->

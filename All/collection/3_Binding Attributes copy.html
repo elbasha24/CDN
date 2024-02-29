@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- step 3 create a div to accommodate the app -->
+    <div id="app">
+      <!-- Shorthand Binding and Dynamic Value: -->
+      <h1 :title="`Welcome, ${name}!`">Hello, {{ name }}!</h1>
+      <!-- Binding Class Names: -->
+      <div :class="[isActive ? 'active' : '', 'my-class']">This is a button.</div>
+      <!-- Binding Multiple Attributes: -->
+      <a :href="url" target="_blank" rel="noopener noreferrer">Link Text</a>
+      <!-- Combining Shorthand and Dynamic Styles: -->
+      <div :style="{ fontSize: fontSize + 'px', color: isActive ? 'red' : 'blue' }">
+      <!-- Using v-on to listen for an event: -->
+      <button @click="greet()">Greet</button>
+
+      <!-- Passing dynamic arguments to methods
+      <!-- Using v-if directive: -->
+      <p v-if="seen">Now you see me!</p>
+      <!-- Using v-show directive: -->
+      <p v-show="ok">Now you don't.</p>
+      <!-- Using v-for directive with an array of objects: -->
+      
+      <!-- Using v-on or @ (shorthand): -->
+      <button v-on:click="reverseMessage">Reverse Message</button>
+      <ul>
+        <li v-for="item in items" :key="item.message">{{ item.message }}</li>
+      </ul>
+    </div>
+  
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+   
+    <script>
+        <!-- step 2 create an app -->
+        const app = Vue.createApp({
+            data() {
+                return {
+                  name: "Guest",//Shorthand Binding and Dynamic Value:
+                  isActive: true, //Binding Class Names:
+                  url: "https://www.example.com",//Binding Multiple Attributes:
+                  fontSize: 16,
+                  isActive: true,
+                  seen:false,
+                  ok:"",
+                  message: "Hello Vue.js!",
+                  reversedMessage: "",
+                  items: [
+      { message: "This is the first item." },
+      { message: "This is the second item." },
+      { message: "This is the third item." },
+    ],
+                };
+            },
+                  hasError: false,
+                  message: 'Hi there!',
+                  info:{
+                      email:'example@gmail.com',
+                      website:'www.google.com'
+                  }
+            
+                }
+            },
+          methods:{
+              changeName(){
+                 this.name ="John Doe";
+              }
+           }
+        });
+        
+        
+        app.mount("#app");
+    </script>
+    
+</body>
+</html>
+
+
+
+

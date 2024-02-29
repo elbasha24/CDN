@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List with Computed Property</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="item in items">{{ item.name }} (Count: {{ item.count }})</li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          products: [
+            { name: "Apple", count: 5 },
+            { name: "Banana", count: 3 },
+            { name: "Orange", count: 7 },
+          ],
+        };
+      },
+      computed: {
+        items() {
+          return this.products.map(product => ({
+            name: product.name,
+            count: product.count,
+          }));
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+</html>
